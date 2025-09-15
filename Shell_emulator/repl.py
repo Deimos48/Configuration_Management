@@ -3,13 +3,14 @@ import shlex
 import socket
 
 from commands import builtIn
+from commands.builtIn import vfs
 
 COMMANDS = {
     "exit": builtIn.cmd_exit,
     "help": builtIn.cmd_help,
-    "echo": builtIn.cmd_echo,
     "ls": builtIn.cmd_ls,
-    "cd":builtIn.cmd_cd
+    "cd":builtIn.cmd_cd,
+    "pwd":builtIn.cmd_pwd,
 
 }
 
@@ -36,7 +37,7 @@ def repl():
 
     while True:
         try:
-            prompt = f"{username}@{hostname}:~$ "
+            prompt = f"{username}@{hostname}:{vfs.getcwd()}~$ "
             cmd_line = input(prompt)
             if not handle_command(cmd_line):
                 break
